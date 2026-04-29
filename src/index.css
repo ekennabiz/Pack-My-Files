@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -12,36 +12,95 @@
 
   --color-accent-start: #10B981;
   --color-accent-end: #0F172A;
+
+  --shadow-industrial: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-crate: 0 10px 30px -15px rgba(15, 23, 42, 0.08);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #ffffff;
-  color: #0F172A;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply antialiased bg-white text-brand-navy;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Custom utilities for Industrial Trust aesthetic */
+/* --- Agency-Level Design Utilities --- */
+
+.mesh-gradient {
+  background: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(15, 23, 42, 0.02) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(15, 23, 42, 0.02) 0px, transparent 50%);
+}
+
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl;
+}
+
+.dark-glass {
+  @apply bg-brand-navy/90 backdrop-blur-2xl border border-white/10 shadow-2xl;
+}
+
 .text-gradient {
-  background: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @apply bg-clip-text text-transparent bg-gradient-to-br from-brand-navy via-brand-navy to-brand-green;
 }
 
-.bg-gradient-accent {
-  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+.industrial-glow {
+  box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.15);
 }
 
-.shadow-industrial {
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+.glass-card {
+  @apply bg-white rounded-3xl border border-slate-200 shadow-industrial transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-brand-green/30;
 }
 
-.shadow-crate {
-  box-shadow: 0 10px 30px -15px rgba(15, 23, 42, 0.08);
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-.border-crate {
-  border: 1px solid #E2E8F0;
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.rotate-y-90 {
+  transform: rotateY(90deg);
+}
+
+.rotate-x-90 {
+  transform: rotateX(90deg);
+}
+
+.translate-z-40 {
+  transform: translateZ(40px);
+}
+
+.translate-z-neg-40 {
+  transform: translateZ(-40px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; filter: blur(40px); }
+  50% { opacity: 0.6; filter: blur(60px); }
+}
+
+.glow-aura {
+  @apply absolute rounded-full bg-brand-green mix-blend-screen pointer-events-none;
+  animation: glow-pulse 10s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
 }
